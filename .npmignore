@@ -1,4 +1,5 @@
 .github/
 jsdoc.conf.json
-LICENSE
 README.md
+gh-pages/
+__test__/

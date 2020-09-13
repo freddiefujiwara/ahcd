@@ -1,6 +1,8 @@
 #!/usr/bin/env node
-const pkg = require('../package')
+
+const pkg  = require('../package')
 const argv = require('minimist')(process.argv.slice(2));
+
 if (argv['_'].length < 1 || typeof argv['h'] !== 'undefined'){
   console.error("================================================================================");
   console.error(pkg.description);
@@ -19,69 +21,46 @@ if (argv['_'].length < 1 || typeof argv['h'] !== 'undefined'){
 /*
  read data from xml
  */
+const AppleHealthCareData = require('../src/AppleHealthCareData');
 console.log(`Read ${argv['_'][0]}`);
-let data = undefined;
-try{
-  data = require('elementtree').parse(require('fs').readFileSync(argv['_'][0], 'utf8'));
-}catch(e){
-  console.error(e);
-  process.exit(1);
-}
+const fs   = require('fs')
+const ahcd = new AppleHealthCareData(fs.readFileSync(argv['_'][0], 'utf8'));
 
 /*
  read data from xml
  */
 console.log(`Analyze ${argv['_'][0]}`);
-const root = data._root;
-const nodes = root.getchildren();
-let results = {};
-nodes.forEach((node) => {
-  if(node.tag === 'Record'){
-    if(node.attrib['type']){
-      // shorten identifier
-      const match = node.attrib['type'].match(/^HK.*TypeIdentifier(.+)$/);
-      if(!match || match.length === 0) return;
-      const key = match[1];
-      // initialize results[key]
-      if(!results[key]){
-        results[key] = {header :[] , records:[]};
-        results[key].header = Object.keys(node.attrib).filter((k) => k !== 'type');
-      }
-      const record = [];
-      results[key].header.forEach((h) => {
-        record.push(node.attrib[h]);
-      });
-      results[key].records.push(record);
-    }
-  }
-});
+ahcd.analyze().writeCsvs();
+
 /*
- filter for argv['t']
+ filter set dir from '-d'
  */
-if(typeof argv['t'] === 'string'){
-  const type = argv['t'];
-  const typeResults = results[type];
-  if(!typeResults){ console.error(`Records for "${type}" is not found`);
-    process.exit(1);
-  }
-  results = {};
-  results[type] = typeResults;
-}
 let dir = process.cwd();
 if(typeof argv['d'] === 'string'){
   dir = argv['d'];
 }
 
 /*
- write CSV
+ write specific CSV from '-t'
  */
-const createCsvWriter = require('csv-writer').createArrayCsvWriter;
-Object.keys(results).forEach(async (k) => {
+if(typeof argv['t'] === 'string'){
+  const k   = argv['t'];
+  const csv = ahcd.csv(k);
+  if(!csv){ console.error(`Records for "${k}" is not found`);
+    process.exit(1);
+  }
   const path = require('path').format({dir:dir,base:`${k}.csv`});
-  const csvWriter = createCsvWriter({
-    header: results[k].header,
-    path: path
-  });
-  await csvWriter.writeRecords(results[k].records);
-  console.log(`Wrote ${path} (${results[k].records.length} records)`);
+  fs.writeFileSync(path,csv,'utf-8');
+  console.log(`Wrote ${path} (${csv.split("\n").length - 2} records)`);
+  process.exit(0);
+}
+
+/*
+ write all CSV
+ */
+ahcd.keys().forEach((k) => {
+  const csv = ahcd.csv(k);
+  const path = require('path').format({dir:dir,base:`${k}.csv`});
+  fs.writeFileSync(path,csv,'utf-8');
+  console.log(`Wrote ${path} (${csv.split("\n").length - 2} records)`);
 });

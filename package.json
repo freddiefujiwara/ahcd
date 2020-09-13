@@ -1,12 +1,16 @@
 {
   "name": "ahcd",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Apple Health Care Data convert xml to csv",
   "main": "src/ahcd.js",
   "bin": "bin/ahcd.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/freddiefujiwara/ahcd.git"
+  },
+  "scripts": {
+    "test": "npx jest",
+    "docs": "npx jsdoc2md -c jsdoc.conf.json src/*.js  > gh-pages/DOCS.md"
   },
   "keywords": [
     "Apple",
@@ -28,5 +32,9 @@
     "csv-writer": "^1.6.0",
     "elementtree": "^0.1.7",
     "minimist": "^1.2.5"
+  },
+  "devDependencies": {
+    "jest": "^26.4.2",
+    "jsdoc-to-markdown": "^6.0.1"
   }
 }

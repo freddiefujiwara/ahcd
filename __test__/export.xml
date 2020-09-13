@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE HealthData [
+<!-- HealthKit Export Version: 11 -->
+<!ELEMENT HealthData (ExportDate,Me,(Record|Correlation|Workout|ActivitySummary|ClinicalRecord)*)>
+<!ATTLIST HealthData
+  locale CDATA #REQUIRED
+>
+<!ELEMENT ExportDate EMPTY>
+<!ATTLIST ExportDate
+  value CDATA #REQUIRED
+>
+<!ELEMENT Me EMPTY>
+<!ATTLIST Me
+  HKCharacteristicTypeIdentifierDateOfBirth         CDATA #REQUIRED
+  HKCharacteristicTypeIdentifierBiologicalSex       CDATA #REQUIRED
+  HKCharacteristicTypeIdentifierBloodType           CDATA #REQUIRED
+  HKCharacteristicTypeIdentifierFitzpatrickSkinType CDATA #REQUIRED
+>
+<!ELEMENT Record ((MetadataEntry|HeartRateVariabilityMetadataList)*)>
+<!ATTLIST Record
+  type          CDATA #REQUIRED
+  unit          CDATA #IMPLIED
+  value         CDATA #IMPLIED
+  sourceName    CDATA #REQUIRED
+  sourceVersion CDATA #IMPLIED
+  device        CDATA #IMPLIED
+  creationDate  CDATA #IMPLIED
+  startDate     CDATA #REQUIRED
+  endDate       CDATA #REQUIRED
+>
+<!-- Note: Any Records that appear as children of a correlation also appear as top-level records in this document. -->
+<!ELEMENT Correlation ((MetadataEntry|Record)*)>
+<!ATTLIST Correlation
+  type          CDATA #REQUIRED
+  sourceName    CDATA #REQUIRED
+  sourceVersion CDATA #IMPLIED
+  device        CDATA #IMPLIED
+  creationDate  CDATA #IMPLIED
+  startDate     CDATA #REQUIRED
+  endDate       CDATA #REQUIRED
+>
+<!ELEMENT Workout ((MetadataEntry|WorkoutEvent|WorkoutRoute)*)>
+<!ATTLIST Workout
+  workoutActivityType   CDATA #REQUIRED
+  duration              CDATA #IMPLIED
+  durationUnit          CDATA #IMPLIED
+  totalDistance         CDATA #IMPLIED
+  totalDistanceUnit     CDATA #IMPLIED
+  totalEnergyBurned     CDATA #IMPLIED
+  totalEnergyBurnedUnit CDATA #IMPLIED
+  sourceName            CDATA #REQUIRED
+  sourceVersion         CDATA #IMPLIED
+  device                CDATA #IMPLIED
+  creationDate          CDATA #IMPLIED
+  startDate             CDATA #REQUIRED
+  endDate               CDATA #REQUIRED
+>
+<!ELEMENT WorkoutEvent EMPTY>
+<!ATTLIST WorkoutEvent
+  type         CDATA #REQUIRED
+  date         CDATA #REQUIRED
+  duration     CDATA #IMPLIED
+  durationUnit CDATA #IMPLIED
+>
+<!ELEMENT WorkoutRoute ((MetadataEntry|FileReference)*)>
+<!ATTLIST WorkoutRoute
+  sourceName    CDATA #REQUIRED
+  sourceVersion CDATA #IMPLIED
+  device        CDATA #IMPLIED
+  creationDate  CDATA #IMPLIED
+  startDate     CDATA #REQUIRED
+  endDate       CDATA #REQUIRED
+>
+<!ELEMENT FileReference EMPTY>
+<!ATTLIST FileReference
+  path CDATA #REQUIRED
+>
+<!ELEMENT ActivitySummary EMPTY>
+<!ATTLIST ActivitySummary
+  dateComponents           CDATA #IMPLIED
+  activeEnergyBurned       CDATA #IMPLIED
+  activeEnergyBurnedGoal   CDATA #IMPLIED
+  activeEnergyBurnedUnit   CDATA #IMPLIED
+  appleMoveMinutes         CDATA #IMPLIED
+  appleMoveMinutesGoal     CDATA #IMPLIED
+  appleExerciseTime        CDATA #IMPLIED
+  appleExerciseTimeGoal    CDATA #IMPLIED
+  appleStandHours          CDATA #IMPLIED
+  appleStandHoursGoal      CDATA #IMPLIED
+>
+<!ELEMENT MetadataEntry EMPTY>
+<!ATTLIST MetadataEntry
+  key   CDATA #REQUIRED
+  value CDATA #REQUIRED
+>
+<!-- Note: Heart Rate Variability records captured by Apple Watch may include an associated list of instantaneous beats-per-minute readings. -->
+<!ELEMENT HeartRateVariabilityMetadataList (InstantaneousBeatsPerMinute*)>
+<!ELEMENT InstantaneousBeatsPerMinute EMPTY>
+<!ATTLIST InstantaneousBeatsPerMinute
+  bpm  CDATA #REQUIRED
+  time CDATA #REQUIRED
+>
+<!ELEMENT ClinicalRecord EMPTY>
+<!ATTLIST ClinicalRecord
+  type              CDATA #REQUIRED
+  identifier        CDATA #REQUIRED
+  sourceName        CDATA #REQUIRED
+  sourceURL         CDATA #REQUIRED
+  fhirVersion       CDATA #REQUIRED
+  receivedDate      CDATA #REQUIRED
+  resourceFilePath  CDATA #REQUIRED
+>
+<!ELEMENT Audiogram EMPTY>
+<!ATTLIST Audiogram
+  type          CDATA #REQUIRED
+  sourceName    CDATA #REQUIRED
+  sourceVersion CDATA #IMPLIED
+  device        CDATA #IMPLIED
+  creationDate  CDATA #IMPLIED
+  startDate     CDATA #REQUIRED
+  endDate       CDATA #REQUIRED
+>
+<!ELEMENT SensitivityPoint EMPTY>
+<!ATTLIST SensitivityPoint
+  frequencyValue   CDATA #REQUIRED
+  frequencyUnit    CDATA #REQUIRED
+  leftEarValue     CDATA #IMPLIED
+  leftEarUnit      CDATA #IMPLIED
+  rightEarValue    CDATA #IMPLIED
+  rightEarUnit     CDATA #IMPLIED
+>
+]>
+<HealthData locale="en_US">
+ <ExportDate value="2020-09-13 08:11:54 +0900"/>
+ <Me HKCharacteristicTypeIdentifierDateOfBirth="2020-09-13" HKCharacteristicTypeIdentifierBiologicalSex="HKBiologicalSexMale" HKCharacteristicTypeIdentifierBloodType="HKBloodTypeBPositive" HKCharacteristicTypeIdentifierFitzpatrickSkinType="HKFitzpatrickSkinTypeNotSet"/>
+ <Record type="HKQuantityTypeIdentifierBodyMassIndex" sourceName="freddie connect" sourceVersion="XX.XX.XX" unit="count" creationDate="2020-03-10 19:35:40 +0900" startDate="2020-03-10 19:34:50 +0900" endDate="2020-03-10 19:34:50 +0900" value="13.5">
+  <MetadataEntry key="SequenceNumber" value="0"/>
+  <MetadataEntry key="HKTimeZone" value="Asia/Tokyo"/>
+  <MetadataEntry key="HKDeviceSerialNumber" value="serial"/>
+  <MetadataEntry key="StartDateLocal" value="20200310193450"/>
+  <MetadataEntry key="UserNumber" value="1"/>
+  <MetadataEntry key="HKDeviceName" value="DEVICE"/>
+  <MetadataEntry key="HKDeviceManufacturerName" value="FREDDIE HEALTHCARE Co., Ltd."/>
+  <MetadataEntry key="meta" value="meta"/>
+ </Record>
+ <Record type="HKQuantityTypeIdentifierBodyMassIndex" sourceName="freddie connect" sourceVersion="XX.XX.XX" unit="count" creationDate="2020-04-10 19:35:40 +0900" startDate="2020-04-10 19:34:50 +0900" endDate="2020-04-10 19:34:50 +0900" value="23.5">
+  <MetadataEntry key="SequenceNumber" value="0"/>
+  <MetadataEntry key="HKTimeZone" value="Asia/Tokyo"/>
+  <MetadataEntry key="HKDeviceSerialNumber" value="serial"/>
+  <MetadataEntry key="StartDateLocal" value="20200310193450"/>
+  <MetadataEntry key="UserNumber" value="1"/>
+  <MetadataEntry key="HKDeviceName" value="DEVICE"/>
+  <MetadataEntry key="HKDeviceManufacturerName" value="FREDDIE HEALTHCARE Co., Ltd."/>
+  <MetadataEntry key="meta" value="meta"/>
+ </Record>
+ <Record type="HKQuantityTypeIdentifierHeartRate" sourceName="ShinzoAdvisor" sourceVersion="126" unit="count/min" creationDate="2020-08-02 19:12:44 +0900" startDate="2020-08-02 19:12:21 +0900" endDate="2020-08-02 19:12:21 +0900" value="75">
+  <MetadataEntry key="Sequence no" value="3"/>
+  <MetadataEntry key="Manufacturer" value="FREDDIE HEALTHCARE Co., Ltd."/>
+ </Record>
+ <Record type="HKQuantityTypeIdentifierBloodPressureSystolic" sourceName="ShinzoAdvisor" sourceVersion="118" unit="mmHg" creationDate="2020-03-10 19:31:48 +0900" startDate="2020-01-24 12:56:51 +0900" endDate="2020-01-24 12:56:51 +0900" value="136"/>
+ <Record type="HKQuantityTypeIdentifierBloodPressureSystolic" sourceName="ShinzoAdvisor" sourceVersion="118" unit="mmHg" creationDate="2020-04-10 19:31:49 +0900" startDate="2020-01-24 12:50:14 +0900" endDate="2020-01-24 12:50:14 +0900" value="134"/>
+ <Record type="HKQuantityTypeIdentifierBloodPressureSystolic" sourceName="ShinzoAdvisor" sourceVersion="118" unit="mmHg" creationDate="2020-05-10 19:31:49 +0900" startDate="2020-01-23 10:43:55 +0900" endDate="2020-01-23 10:43:55 +0900" value="145"/>
+ <Record type="HKQuantityTypeIdentifierBloodPressureSystolic" sourceName="ShinzoAdvisor" sourceVersion="118" unit="mmHg" creationDate="2020-06-10 19:31:49 +0900" startDate="2020-01-23 08:44:09 +0900" endDate="2020-01-23 08:44:09 +0900" value="100"/>
+ <Record type="HKQuantityTypeIdentifierBloodPressureSystolic" sourceName="ShinzoAdvisor" sourceVersion="118" unit="mmHg" creationDate="2020-07-10 19:31:49 +0900" startDate="2020-01-22 13:31:26 +0900" endDate="2020-01-22 13:31:26 +0900" value="119"/>
+ <Record type="HKQuantityTypeIdentifierBloodPressureSystolic" sourceName="ShinzoAdvisor" sourceVersion="118" unit="mmHg" creationDate="2020-08-10 19:31:49 +0900" startDate="2020-01-21 15:27:49 +0900" endDate="2020-01-21 15:27:49 +0900" value="126"/>
+ <Correlation type="HKCorrelationTypeIdentifierBloodPressure" sourceName="ShinzoAdvisor" sourceVersion="126" creationDate="2020-08-02 19:12:44 +0900" startDate="2020-08-02 19:12:21 +0900" endDate="2020-08-02 19:12:21 +0900">
+  <MetadataEntry key="Sequence no" value="3"/>
+  <MetadataEntry key="Manufacturer" value="FREDDIE HEALTHCARE Co., Ltd."/>
+  <Record type="HKQuantityTypeIdentifierBloodPressureDiastolic" sourceName="ShinzoAdvisor" sourceVersion="126" unit="mmHg" creationDate="2020-08-02 19:12:44 +0900" startDate="2020-08-02 19:12:21 +0900" endDate="2020-08-02 19:12:21 +0900" value="74"/>
+  <Record type="HKQuantityTypeIdentifierBloodPressureSystolic" sourceName="ShinzoAdvisor" sourceVersion="126" unit="mmHg" creationDate="2020-08-02 19:12:44 +0900" startDate="2020-08-02 19:12:21 +0900" endDate="2020-08-02 19:12:21 +0900" value="125"/>
+ </Correlation>
+</HealthData>
