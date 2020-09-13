@@ -1,6 +1,6 @@
 {
   "name": "ahcd",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Apple Health Care Data convert xml to csv",
   "main": "dist/ahcd.js",
   "bin": "bin/ahcd.js",

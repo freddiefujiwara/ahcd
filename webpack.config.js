@@ -5,11 +5,9 @@ module.exports = {
     fs: 'empty'
   },
   output: {
-    library: '',
-    libraryExport: '',
+    library: 'AppleHealthCareData',
     libraryTarget: 'umd',
     globalObject: 'this',
-    umdNamedDefine: true,
     filename: 'ahcd.js'
   }
 };
