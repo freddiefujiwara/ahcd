@@ -1,4 +1,5 @@
-[![npm version](https://badge.fury.io/js/ahcd.svg)](https://badge.fury.io/js/ahcd)
+![npm version](https://badge.fury.io/js/ahcd.svg)](https://badge.fury.io/js/ahcd)
+![Node.js CI](https://github.com/freddiefujiwara/ahcd/workflows/Node.js%20CI/badge.svg)
 # ahcd
 Apple Health Care Data convert xml to csv
 
