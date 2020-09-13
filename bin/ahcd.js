@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 const pkg = require('../package')
+const fs = require('fs')
 const argv = require('minimist')(process.argv.slice(2));
 if (argv['_'].length < 1 || typeof argv['h'] !== 'undefined'){
   console.error("================================================================================");
@@ -22,7 +23,7 @@ if (argv['_'].length < 1 || typeof argv['h'] !== 'undefined'){
 console.log(`Read ${argv['_'][0]}`);
 let data = undefined;
 try{
-  data = require('elementtree').parse(require('fs').readFileSync(argv['_'][0], 'utf8'));
+  data = require('elementtree').parse(fs.readFileSync(argv['_'][0], 'utf8'));
 }catch(e){
   console.error(e);
   process.exit(1);
@@ -32,27 +33,24 @@ try{
  read data from xml
  */
 console.log(`Analyze ${argv['_'][0]}`);
-const root = data._root;
-const nodes = root.getchildren();
 let results = {};
-nodes.forEach((node) => {
-  if(node.tag === 'Record'){
-    if(node.attrib['type']){
-      // shorten identifier
-      const match = node.attrib['type'].match(/^HK.*TypeIdentifier(.+)$/);
-      if(!match || match.length === 0) return;
-      const key = match[1];
-      // initialize results[key]
-      if(!results[key]){
-        results[key] = {header :[] , records:[]};
-        results[key].header = Object.keys(node.attrib).filter((k) => k !== 'type');
-      }
-      const record = [];
-      results[key].header.forEach((h) => {
-        record.push(node.attrib[h]);
-      });
-      results[key].records.push(record);
+data._root.getchildren().forEach((node) => {
+  if('Record' === node.tag && node.attrib['type']){
+    // shorten identifier
+    const match = node.attrib['type'].match(/^HK.*TypeIdentifier(.+)$/);
+    if(!match || match.length === 0) return;
+    const key = match[1];
+    // initialize results[key]
+    if(!results[key]){
+      results[key] = {header :[] , records:[]};
+      Object.keys(node.attrib).filter((k) => k !== 'type')
+        .forEach((k) => results[key].header.push({id:k,title:k}));
     }
+    const record = {};
+    results[key].header.forEach((h) => {
+      record[h.id] = node.attrib[h.id];
+    });
+    results[key].records.push(record);
   }
 });
 /*
@@ -75,13 +73,16 @@ if(typeof argv['d'] === 'string'){
 /*
  write CSV
  */
-const createCsvWriter = require('csv-writer').createArrayCsvWriter;
-Object.keys(results).forEach(async (k) => {
-  const path = require('path').format({dir:dir,base:`${k}.csv`});
+const createCsvWriter = require('csv-writer').createObjectCsvStringifier;
+Object.keys(results).forEach((k) => {
   const csvWriter = createCsvWriter({
-    header: results[k].header,
-    path: path
+    header: results[k].header
   });
-  await csvWriter.writeRecords(results[k].records);
+  //await csvWriter.writeRecords(results[k].records);
+  const csv =
+    csvWriter.getHeaderString() +
+    csvWriter.stringifyRecords(results[k].records);
+  const path = require('path').format({dir:dir,base:`${k}.csv`});
+  fs.writeFileSync(path,csv,'utf-8');
   console.log(`Wrote ${path} (${results[k].records.length} records)`);
 });
