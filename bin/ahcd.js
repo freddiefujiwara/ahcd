@@ -1,7 +1,8 @@
 #!/usr/bin/env node
-const pkg = require('../package')
-const fs = require('fs')
+
+const pkg  = require('../package')
 const argv = require('minimist')(process.argv.slice(2));
+
 if (argv['_'].length < 1 || typeof argv['h'] !== 'undefined'){
   console.error("================================================================================");
   console.error(pkg.description);
@@ -22,6 +23,7 @@ if (argv['_'].length < 1 || typeof argv['h'] !== 'undefined'){
  */
 const AppleHealthCareData = require('../src/AppleHealthCareData');
 console.log(`Read ${argv['_'][0]}`);
+const fs   = require('fs')
 const a = new AppleHealthCareData(fs.readFileSync(argv['_'][0], 'utf8'));
 
 /*
@@ -29,8 +31,9 @@ const a = new AppleHealthCareData(fs.readFileSync(argv['_'][0], 'utf8'));
  */
 console.log(`Analyze ${argv['_'][0]}`);
 a.analyze().writeCsvs();
+
 /*
- filter for argv['t']
+ filter set dir from '-d'
  */
 let dir = process.cwd();
 if(typeof argv['d'] === 'string'){
@@ -38,7 +41,7 @@ if(typeof argv['d'] === 'string'){
 }
 
 /*
- write specific CSV
+ write specific CSV from '-t'
  */
 if(typeof argv['t'] === 'string'){
   const k   = argv['t'];
@@ -55,7 +58,7 @@ if(typeof argv['t'] === 'string'){
 /*
  write all CSV
  */
-Object.keys(a.csvs).forEach((k) => {
+a.keys().forEach((k) => {
   const csv = a.csv(k);
   const path = require('path').format({dir:dir,base:`${k}.csv`});
   fs.writeFileSync(path,csv,'utf-8');

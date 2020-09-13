@@ -19,4 +19,8 @@ describe('AppleHealthCareData', () => {
     const r = new AppleHealthCareData(require('fs').readFileSync('__test__/export.xml','utf-8'));
     expect(r.csv).toBeInstanceOf(Function);
   });
+  it(' keys() : can be a function', () => {
+    const r = new AppleHealthCareData(require('fs').readFileSync('__test__/export.xml','utf-8'));
+    expect(r.keys).toBeInstanceOf(Function);
+  });
 });

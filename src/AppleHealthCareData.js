@@ -68,6 +68,14 @@ class AppleHealthCareData {
   csv(key){
     return this.csvs[key];
   }
+
+  /**
+   * readInputfrom stdin
+   *
+   */
+  keys(){
+    return Object.keys(this.csvs);
+  }
 }
 
 if (typeof module !== 'undefined' && typeof module.exports !== 'undefined'){
