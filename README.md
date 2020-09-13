@@ -13,7 +13,7 @@ I'm going to show you how to do this with [I created a CLI](https://www.npmjs.co
 # How to extract Apple health data.
 First, take a look at this 
 
-![](https://freddiefujiwara.github.io/ahcd/ezgif.com-video-to-gif.gif)
+![](https://github.com/freddiefujiwara/ahcd/blob/master/docs/ezgif.com-video-to-gif.gif?raw=true)
 
 - Open Health on your iPhone.
 - Tap the profile icon in the top right corner.
