@@ -9,6 +9,7 @@ module.exports = {
     libraryExport: '',
     libraryTarget: 'umd',
     globalObject: 'this',
+    umdNamedDefine: true,
     filename: 'ahcd.js'
   }
 };
