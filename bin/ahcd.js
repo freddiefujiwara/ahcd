@@ -38,12 +38,12 @@ data._root.getchildren().forEach((node) => {
   if('Record' === node.tag && node.attrib['type']){
     // shorten identifier
     const match = node.attrib['type'].match(/^HK.*TypeIdentifier(.+)$/);
-    if(!match || match.length === 0) return;
+    if(!match || 0 === match.length) return;
     const key = match[1];
     // initialize results[key]
     if(!results[key]){
       results[key] = {header :[] , records:[]};
-      Object.keys(node.attrib).filter((k) => k !== 'type')
+      Object.keys(node.attrib).filter((k) => 'type' !== k)
         .forEach((k) => results[key].header.push({id:k,title:k}));
     }
     const record = {};
