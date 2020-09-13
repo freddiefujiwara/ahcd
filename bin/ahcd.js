@@ -20,69 +20,44 @@ if (argv['_'].length < 1 || typeof argv['h'] !== 'undefined'){
 /*
  read data from xml
  */
+const AppleHealthCareData = require('../src/AppleHealthCareData');
 console.log(`Read ${argv['_'][0]}`);
-let data = undefined;
-try{
-  data = require('elementtree').parse(fs.readFileSync(argv['_'][0], 'utf8'));
-}catch(e){
-  console.error(e);
-  process.exit(1);
-}
+const a = new AppleHealthCareData(fs.readFileSync(argv['_'][0], 'utf8'));
 
 /*
  read data from xml
  */
 console.log(`Analyze ${argv['_'][0]}`);
-let results = {};
-data._root.getchildren().forEach((node) => {
-  if('Record' === node.tag && node.attrib['type']){
-    // shorten identifier
-    const match = node.attrib['type'].match(/^HK.*TypeIdentifier(.+)$/);
-    if(!match || 0 === match.length) return;
-    const key = match[1];
-    // initialize results[key]
-    if(!results[key]){
-      results[key] = {header :[] , records:[]};
-      Object.keys(node.attrib).filter((k) => 'type' !== k)
-        .forEach((k) => results[key].header.push({id:k,title:k}));
-    }
-    const record = {};
-    results[key].header.forEach((h) => {
-      record[h.id] = node.attrib[h.id];
-    });
-    results[key].records.push(record);
-  }
-});
+a.analyze().writeCsvs();
 /*
  filter for argv['t']
  */
-if(typeof argv['t'] === 'string'){
-  const type = argv['t'];
-  const typeResults = results[type];
-  if(!typeResults){ console.error(`Records for "${type}" is not found`);
-    process.exit(1);
-  }
-  results = {};
-  results[type] = typeResults;
-}
 let dir = process.cwd();
 if(typeof argv['d'] === 'string'){
   dir = argv['d'];
 }
 
 /*
- write CSV
+ write specific CSV
  */
-const createCsvWriter = require('csv-writer').createObjectCsvStringifier;
-Object.keys(results).forEach((k) => {
-  const csvWriter = createCsvWriter({
-    header: results[k].header
-  });
-  //await csvWriter.writeRecords(results[k].records);
-  const csv =
-    csvWriter.getHeaderString() +
-    csvWriter.stringifyRecords(results[k].records);
+if(typeof argv['t'] === 'string'){
+  const k   = argv['t'];
+  const csv = a.csv(k);
+  if(!csv){ console.error(`Records for "${k}" is not found`);
+    process.exit(1);
+  }
   const path = require('path').format({dir:dir,base:`${k}.csv`});
   fs.writeFileSync(path,csv,'utf-8');
-  console.log(`Wrote ${path} (${results[k].records.length} records)`);
+  console.log(`Wrote ${path} (${csv.split("\n").length - 2} records)`);
+  process.exit(0);
+}
+
+/*
+ write all CSV
+ */
+Object.keys(a.csvs).forEach((k) => {
+  const csv = a.csv(k);
+  const path = require('path').format({dir:dir,base:`${k}.csv`});
+  fs.writeFileSync(path,csv,'utf-8');
+  console.log(`Wrote ${path} (${csv.split("\n").length - 2} records)`);
 });
