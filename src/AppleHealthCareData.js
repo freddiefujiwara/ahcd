@@ -1,15 +1,20 @@
 /**
  * @classdesc
- * REPL for jssqlite
- *
+ * Apple Health Care Data convert xml to csv
+ * usage :
+ * const ahcd = new AppleHealthCareData(xml);
+ * ahcd.analyze().writeCsvs();
+ * ahcd.keys().forEach((k) => console.log(ahcd.csv(k)));
  *
  */
 class AppleHealthCareData {
   /**
    * @constructor
+   * @params {string} xml
    * @desc
-   * set this.poolSize = 20;
-   * set this.filter = undefined;
+   * this.nodes : parse by using elementtree
+   * this.results : {}
+   * this.csvs : {}
    */
   constructor(xml){
     this.nodes = require('elementtree').parse(xml)._root.getchildren();
@@ -17,7 +22,10 @@ class AppleHealthCareData {
     this.csvs = {};
   }
   /**
-   * printPrompt "db > "
+   * analyze
+   * @returns {AppleHealthCareData} this This object
+   * @desc
+   * crawl this.nodes to fillout this.results
    *
    */
   analyze(){
@@ -44,7 +52,10 @@ class AppleHealthCareData {
     return this;
   }
   /**
-   * readInputfrom stdin
+   * writeCsvs
+   * @returns {AppleHealthCareData} this This object
+   * @desc
+   * crawl this.results to fillout this.csvs
    *
    */
   writeCsvs(){
@@ -62,7 +73,9 @@ class AppleHealthCareData {
   }
 
   /**
-   * readInputfrom stdin
+   * csv
+   * @params {string} key
+   * @returns {string} csv string
    *
    */
   csv(key){
@@ -70,7 +83,8 @@ class AppleHealthCareData {
   }
 
   /**
-   * readInputfrom stdin
+   * keys
+   * @returns {array} all keys
    *
    */
   keys(){

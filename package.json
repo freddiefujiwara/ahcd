@@ -10,7 +10,7 @@
   },
   "scripts": {
     "test": "npx jest",
-    "docs": "npx jsdoc2md -c jsdoc.conf.json src/*.js  > DOCS.md"
+    "docs": "npx jsdoc2md -c jsdoc.conf.json src/*.js  > gh-pages/DOCS.md"
   },
   "keywords": [
     "Apple",
@@ -34,6 +34,7 @@
     "minimist": "^1.2.5"
   },
   "devDependencies": {
-    "jest": "^26.4.2"
+    "jest": "^26.4.2",
+    "jsdoc-to-markdown": "^6.0.1"
   }
 }

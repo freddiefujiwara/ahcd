@@ -24,13 +24,13 @@ if (argv['_'].length < 1 || typeof argv['h'] !== 'undefined'){
 const AppleHealthCareData = require('../src/AppleHealthCareData');
 console.log(`Read ${argv['_'][0]}`);
 const fs   = require('fs')
-const a = new AppleHealthCareData(fs.readFileSync(argv['_'][0], 'utf8'));
+const ahcd = new AppleHealthCareData(fs.readFileSync(argv['_'][0], 'utf8'));
 
 /*
  read data from xml
  */
 console.log(`Analyze ${argv['_'][0]}`);
-a.analyze().writeCsvs();
+ahcd.analyze().writeCsvs();
 
 /*
  filter set dir from '-d'
@@ -45,7 +45,7 @@ if(typeof argv['d'] === 'string'){
  */
 if(typeof argv['t'] === 'string'){
   const k   = argv['t'];
-  const csv = a.csv(k);
+  const csv = ahcd.csv(k);
   if(!csv){ console.error(`Records for "${k}" is not found`);
     process.exit(1);
   }
@@ -58,8 +58,8 @@ if(typeof argv['t'] === 'string'){
 /*
  write all CSV
  */
-a.keys().forEach((k) => {
-  const csv = a.csv(k);
+ahcd.keys().forEach((k) => {
+  const csv = ahcd.csv(k);
   const path = require('path').format({dir:dir,base:`${k}.csv`});
   fs.writeFileSync(path,csv,'utf-8');
   console.log(`Wrote ${path} (${csv.split("\n").length - 2} records)`);
