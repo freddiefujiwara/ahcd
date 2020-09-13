@@ -21,7 +21,7 @@ if (argv['_'].length < 1 || typeof argv['h'] !== 'undefined'){
 /*
  read data from xml
  */
-const AppleHealthCareData = require('../src/AppleHealthCareData');
+const AppleHealthCareData = require('../dist/ahcd');
 console.log(`Read ${argv['_'][0]}`);
 const fs   = require('fs')
 const ahcd = new AppleHealthCareData(fs.readFileSync(argv['_'][0], 'utf8'));
