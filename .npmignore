@@ -1,5 +1,7 @@
 .github/
 jsdoc.conf.json
 README.md
-gh-pages/
 __test__/
+src/
+docs/
+webpack.config.js
