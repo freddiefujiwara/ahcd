@@ -1,6 +1,6 @@
 {
   "name": "ahcd",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Apple Health Care Data convert xml to csv",
   "main": "src/ahcd.js",
   "bin": "bin/ahcd.js",
@@ -14,7 +14,11 @@
     "xml",
     "csv"
   ],
-  "author": "Fumikazu Fujiwara",
+  "author": {
+    "name": "Fumikazu Fujiwara",
+    "email": "npm@ze.gs",
+    "url": "http://freddiefujiwara.com"
+  },
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/freddiefujiwara/ahcd/issues"
