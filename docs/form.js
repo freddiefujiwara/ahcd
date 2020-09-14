@@ -11,9 +11,9 @@ $(function() {
         ahcd = new AppleHealthCareData(reader.result);
         ahcd.analyze().writeCsvs();
         ahcd.keys().forEach((k) => {
-          const li = $("<li>").text(k);
-          li.on('click', () => console.log(ahcd.csv(k)));
-          $("#download").append(li);
+          const a = $('<a href="#">').text(`${k}.csv`);
+          a.on('click', () => console.log(ahcd.csv(k)));
+          $("#download").append($("<li>").append(a));
         });
       }
     })(reader);
