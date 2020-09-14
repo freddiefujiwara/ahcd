@@ -21,7 +21,7 @@ $(function() {
     reader.readAsText(f);
   }
   if (window.File && window.FileReader && window.FileList && window.Blob) {
-    $('#files').on('change', handleFileSelect);
+    $('#file').on('change', handleFileSelect);
   } else {
     alert('Your browser is not supported');
   }
