@@ -1,6 +1,8 @@
 $(function() {
   const ahcds = [];
   function handleFileSelect(evt) {
+    console.log(evt.target);
+    /*
     evt.target.files.forEach((f) => {
       const reader = new FileReader();
       reader.onload = ((reader) => {
@@ -15,6 +17,7 @@ $(function() {
       reader.readAsText(f);
     });
   }
+  */
   if (window.File && window.FileReader && window.FileList && window.Blob) {
     $('#files').on('change', handleFileSelect);
   } else {
