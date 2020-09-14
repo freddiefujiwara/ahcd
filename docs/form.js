@@ -1,15 +1,20 @@
 $(function() {
-  let ahcd = undefined;
+  let ahcd;
+
   function handleFileSelect(evt) {
+    ahcd = undefined;
+    $("#download").empty();
     const f = evt.target.files[0]
     const reader = new FileReader();
     reader.onload = ((reader) => {
       return () => {
-        console.log(reader.result);
         ahcd = new AppleHealthCareData(reader.result);
-        console.log("Analyzing");
         ahcd.analyze().writeCsvs();
-        console.log(ahcd);
+        ahcd.keys().forEach((k) => {
+          const li = $("<li>").text(k);
+          li.on('click', () => console.log(ahcd.csv(k)));
+          $("#download").append(li);
+        });
       }
     })(reader);
     reader.readAsText(f);
@@ -17,6 +22,6 @@ $(function() {
   if (window.File && window.FileReader && window.FileList && window.Blob) {
     $('#files').on('change', handleFileSelect);
   } else {
-    alert('Your browser is not working here ');
+    alert('Your browser is not supported');
   }
 });
