@@ -5,7 +5,9 @@ $(function() {
     const reader = new FileReader();
     reader.onload = ((reader) => {
       return () => {
+        console.log(reader.result);
         ahcd = new AppleHealthCareData(reader.result);
+        console.log("Analyzing");
         ahcd.analyze().writeCsvs();
         console.log(ahcd);
       }
