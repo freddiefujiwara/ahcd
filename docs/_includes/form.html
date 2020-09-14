@@ -1,30 +1,4 @@
 <input type="file" id="files" >
 <script src="https://unpkg.com/ahcd/dist/ahcd.js"></script>
 <script src="https://code.jquery.com/jquery-git.min.js"></script>
-<script type="text/javascript">
-  //<![CDATA[
-$(function() {
-  const ahcds = [];
-  function handleFileSelect(evt) {
-    evt.target.files.forEach((f) => {
-      const reader = new FileReader();
-      reader.onload = ((reader) => {
-        return () => {
-          const contents = reader.result;
-          const ahcd = new AppleHealthCareData(contents);
-          ahcd.analyze().writeCsvs();
-          ahcds.push(ahcd);
-          console.log(contents);
-        }
-      })(reader);
-      reader.readAsText(f);
-    });
-  }
-  if (window.File && window.FileReader && window.FileList && window.Blob) {
-    $('#files').on('change', handleFileSelect);
-  } else {
-    alert('Your browser is not working here ');
-  }
-});
-  //]]>
-</script>
+<script type="text/javascript" src="https://freddiefujiwara.github.io/ahcd/form.js"></script>
