@@ -7,6 +7,7 @@ $(function() {
       return () => {
         ahcd = new AppleHealthCareData(reader.result);
         ahcd.analyze().writeCsvs();
+        console.log(ahcd);
       }
     })(reader);
     reader.readAsText(f);
