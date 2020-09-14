@@ -16,3 +16,4 @@ you are going to use the **export.xml** in the context
 # Step 3 Upload your export.xml
 {% include form.html %}
 # Step 4 Download csvs
+{% include download.html %}
