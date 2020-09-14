@@ -16,8 +16,8 @@ $(function() {
       })(reader);
       reader.readAsText(f);
     });
-  }
   */
+  }
   if (window.File && window.FileReader && window.FileList && window.Blob) {
     $('#files').on('change', handleFileSelect);
   } else {
