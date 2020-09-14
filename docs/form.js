@@ -1,15 +1,12 @@
 $(function() {
-  const ahcds = [];
+  let ahcd = undefined;
   function handleFileSelect(evt) {
     const f = evt.target.files[0]
     const reader = new FileReader();
     reader.onload = ((reader) => {
       return () => {
-        const contents = reader.result;
-        const ahcd = new AppleHealthCareData(contents);
+        ahcd = new AppleHealthCareData(reader.result);
         ahcd.analyze().writeCsvs();
-        ahcds.push(ahcd);
-        console.log(contents);
       }
     })(reader);
     reader.readAsText(f);
