@@ -1,7 +1,8 @@
 $(function() {
   const ahcds = [];
   function handleFileSelect(evt) {
-    console.log(evt.target);
+    console.log(evt.target.file);
+    console.log(evt.target.files);
     /*
     evt.target.files.forEach((f) => {
       const reader = new FileReader();
