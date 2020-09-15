@@ -1,4 +1,3 @@
-<html><head><script data-ad-client="ca-pub-7418307857966312" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script></head><body>
 # Step 1 extract your Health data from your iphone
 First, take a look at this 
 
@@ -19,4 +18,3 @@ you are going to use the **export.xml** in the context
 # Step 4 Download csvs
 {% include download.html %}
 {% include ads.html %}
-</body></html>
